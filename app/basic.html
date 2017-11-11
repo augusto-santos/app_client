@@ -1,57 +1,161 @@
 <!doctype html>
-<html lang="">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-
+    <title>Login</title>
     <!-- Web Application Manifest -->
     <link rel="manifest" href="manifest.json">
 
-    <!-- Add to homescreen for Chrome on Android -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Web Starter Kit">
-    <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+      *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .wrapper_signin{
+        width: 100%;
+        height: 100%;
+        display: flex;
+      }
+      #node{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 100px 0;
+      }
+      .wrap_tasks{
+        display: flex;
+        width: 390px;
+        height: 80px;
+        margin: 10px 0;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 2px;
+        border-left: 10px solid #ccc;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);        
+      }
+      .wrap_desc{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px 0 10px 15px;
+      }
+        .wrap_tasks h2{
+          font-size: 24px;
+          font-weight: 500;
+          line-height: 1.3em;
+          letter-spacing: .1px;
+        }
+        .wrap_tasks p{
+          font-size: 14px;
+          font-weight: 400;
+          color: #716060;
+          letter-spacing: .1px;
+          line-height: 1.3em;
+        }
 
-    <!-- Add to homescreen for Safari on iOS -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
-    <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
+      .done{
+        border-left: 10px solid #5dafe3;
+      }
+        .done .btn_done{
+          background: #ed9a53;
+          color: #fff;
+        }
+      .undone .btn_done{
+        background: #5dafe3;
+        color: #fff;
+      }
+      .wrap_btn{
+        width: 80px;
+        height: 100%;
+      }
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
+      .btn_done{
+        display: flex;
+        height: 100%;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.3em;
+        letter-spacing: .1px;
+        cursor: pointer;
+      }
+      .btn_done:hover{
+        background: rgba(0,0,0,.55);
+      }
 
-    <!-- Color the status bar on mobile devices -->
-    <meta name="theme-color" content="#2F3BA2">
-
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
+    </style>
   </head>
   <body>
     <!-- Add your site or app content here -->
+    <div class="wrapper_signin">
+      <div id="node"></div>
+    </div>
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- build:js scripts/main.min.js -->
-    <script src="scripts/main.js"></script>
+    <script>
+      window.onload = function(){
+        var node = document.querySelector('#node')
+        var first = node.firstChild
+        
+        axios.get('https://rest_api-augustosantos55828536.codeanyapp.com/api/tasks')
+          .then(function(res){
+            res.data.forEach(function(elem) {
+              var div = document.createElement('div')
+              var div_txt = document.createElement('div')
+              var title = document.createElement('h2')
+              var desc = document.createElement('p')
+              var btn = document.createElement('button')
+              var div_btn = document.createElement('div')
+
+              div.setAttribute('class', 'wrap_tasks')
+              div_txt.setAttribute('class', 'wrap_desc')
+              btn.setAttribute('class', 'btn_done')
+              div_btn.setAttribute('class', 'wrap_btn')
+              var txt_btn = ''
+              
+              if(elem.Status){
+                div.classList.remove('undone')
+                div.classList.add('done')
+                txt_btn = document.createTextNode('undo')
+              }else{
+                div.classList.remove('done')
+                div.classList.add('undone')
+                txt_btn = document.createTextNode('done')
+              }
+
+              var txt_title = document.createTextNode(elem.Title)
+              var txt_desc = document.createTextNode(elem.description)
+
+              btn.appendChild(txt_btn)
+              
+              title.appendChild(txt_title)
+              desc.appendChild(txt_desc)
+              div_txt.appendChild(desc)
+              div_txt.insertBefore(title, desc)
+              div_btn.appendChild(btn)
+              div.insertAdjacentElement('afterbegin', div_txt)
+              div.insertAdjacentElement('beforeend', div_btn)
+              node.appendChild(div)
+            });
+          })
+      }
+    </script>
     <!-- endbuild -->
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-XXXXX-X', 'auto');
-      ga('send', 'pageview');
-    </script>
     <!-- Built with love using Web Starter Kit -->
   </body>
 </html>
