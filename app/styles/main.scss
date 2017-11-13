@@ -36,7 +36,7 @@ html, body{
   align-items: center;
 }
 .wrapper_content h4{
-  color: #f0be72;
+  color: $primary-color-text;
   font-size: 38px;
   font-weight: 400;
   font-family: helvetica;
@@ -44,7 +44,7 @@ html, body{
   letter-spacing: .2px;
 }
 .wrapper_content p{
-  color: #a0b3c6;
+  color: $secondary-color-text;
   line-height: 1.3em;
   font-size: 16px;
   font-weight: 400;
@@ -145,40 +145,73 @@ header{
   align-items: center;
   position: fixed;
   background: $color-background;
+  & .container{
+    margin: 0 15px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & .nav_ctrl{
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    }
 }
 
-header .container{
-  margin: 0 15px;
-  width: 100%;
-  height: 100%;
+/*=================
+ navigation header
+===================*/
+.navigation{
   display: flex;
+  height: 100%;
   align-items: center;
+  justify-content: flex-start;
+  & ul{
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    & li {
+      display: flex;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      & a{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        color: #fffcfc;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: .1px;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: transparent;
+        transition: color, background .3s ease;
+        will-change: background, color;
+        &:hover{
+          color: $primary-color-text;
+          background: rgba(255,255,255,.1);
+        }
+      }
+      & ._ativo{
+        border-bottom: 1px solid $secondary-color-text;
+      }
+    }
   }
+}
+
 
 /*=============
  button style
-===============*/
-.btn {
-  border: 0;
-  padding: 0 18px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1em;
-  border-radius: 1px;
-  color: #333;
-  cursor: pointer;
-  font-weight: 400;
-  line-height: 1.3em;
-  letter-spacing: .1px;
-  margin: 0 10px;
-  transition: box-shadow .3s ease;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.15), 0 4px 4px 0 rgba(0,0,0,.25);
-}
-.btn:hover{
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.15), 0 8px 8px 0 rgba(0,0,0,.25);
-}
+ ===============*/
+@import 'res/button';
 
 .btn_group_hero{
   display: flex;
@@ -189,28 +222,11 @@ header .container{
 }
 
 #btn_reader{
-  background: $btn-color-reader;
+  background: $primary-color-text;
   color: #333;
 }
 
-/*============
-  button icon
-==============*/
-.btn_icon{
-  display: flex;
-  height: $height-header;
-  width: $height-header;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #fcfbfb;
-  background: transparent;
-  transition: background .3s ease;
-}
 
-.btn_icon:hover{
-  background: rgba(255,255,255,.25);
-}
 
 /*====================
  menu style - alfa

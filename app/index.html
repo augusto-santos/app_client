@@ -12,6 +12,7 @@
 
     <!-- Material Design icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet"> 
     <!-- Your styles -->
     <link rel="stylesheet" href="styles/main.css">
   </head>
@@ -20,19 +21,28 @@
     <div class="wrapper">
       <header>
         <div class="container">
-          <div class="sidebar_trigger btn_icon">
-            <i class="material-icons">menu</i>
-          </div>
-          <div class="menu">
-            <button data-toggle="menu">
-              <i class="material-icons">translate</i>
-            </button>
-            <div class="menu_box">
-              <ul>
-                <li>Portugues</li>
-                <li>Inglês</li>
-              </ul>
-            </div>
+          <nav class="navigation">
+            <ul>
+              <li class="_ativo"><a href="/overview">Overview</a></li>
+              <li><a href="/story">Story</a></li>
+              <li><a href="/about">About</a></li>
+            </ul>
+          </nav>
+          <div class="nav_ctrl">
+              <div class="menu">
+                <button data-toggle="menu">
+                  <i class="material-icons">translate</i>
+                </button>
+                <div class="menu_box">
+                  <ul>
+                    <li>Portugues</li>
+                    <li>Inglês</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="btn_icon search">
+                <i class="material-icons">search</i>
+              </div>
           </div>
         </div>
       </header>
@@ -108,6 +118,23 @@
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="scripts/main.js"></script>
+    <script>
+      const lang = navigator.language;
+
+      axios.get('strings/' + lang + '.json')
+        .then(function(res){
+          if(res.data.lang == lang){
+            console.log('sua linguagem atual é: ' + lang );
+          }
+
+          document.title = res.data.title_page;
+          document.getElementById('main_title').appendChild(document.createTextNode(res.data.main_section.title));
+          document.getElementById('main_desc').appendChild(document.createTextNode(res.data.main_section.desc));
+          document.getElementById('sing_up').appendChild(document.createTextNode(res.data.main_section.buttons.signup));
+          document.getElementById('btn_reader').appendChild(document.createTextNode(res.data.main_section.buttons.reader));
+
+        })
+    </script>
     <!-- endbuild -->
 
     <!-- Built with love using Web Starter Kit -->

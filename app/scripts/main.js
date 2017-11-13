@@ -74,22 +74,6 @@
 
   // Your custom JavaScript goes here
 
-  const lang = navigator.language;
-
-  axios.get('../strings/' + lang + '.json')
-    .then(function(res){
-      if(res.data.lang == lang){
-        console.log('sua linguagem atual é: ' + lang );
-      }
-
-      document.title = res.data.title_page;
-      document.getElementById('main_title').appendChild(document.createTextNode(res.data.main_section.title));
-      document.getElementById('main_desc').appendChild(document.createTextNode(res.data.main_section.desc));
-      document.getElementById('sing_up').appendChild(document.createTextNode(res.data.main_section.buttons.signup));
-      document.getElementById('btn_reader').appendChild(document.createTextNode(res.data.main_section.buttons.reader));
-
-    })
-
   /*===================
   | Menu Scripts:start 
   =====================*/  
@@ -118,10 +102,5 @@
   /*=================
   | Menu Script:end
   ===================*/
-
-  var signup = document.getElementById('sing_up')
-  signup.onclick = function(){
-    window.location.href = 'basic.html'
-  }
 
 })();
