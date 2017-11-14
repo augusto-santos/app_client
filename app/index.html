@@ -23,7 +23,7 @@
         <div class="container">
           <nav class="navigation">
             <ul>
-              <li class="_ativo"><a href="/overview">Overview</a></li>
+              <li class="ativo"><a href="/overview">Overview</a></li>
               <li><a href="/story">Story</a></li>
               <li><a href="/about">About</a></li>
             </ul>
@@ -123,9 +123,6 @@
 
       axios.get('strings/' + lang + '.json')
         .then(function(res){
-          if(res.data.lang == lang){
-            console.log('sua linguagem atual é: ' + lang );
-          }
 
           document.title = res.data.title_page;
           document.getElementById('main_title').appendChild(document.createTextNode(res.data.main_section.title));

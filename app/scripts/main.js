@@ -79,6 +79,7 @@
   =====================*/  
 
   var menu = document.querySelectorAll('.menu');
+  // transformando um HTMLCollection em array
   var arrMenu = Array.prototype.slice.call(menu, 0);
   
   arrMenu.forEach(function(elem) {
